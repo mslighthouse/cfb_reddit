@@ -1,3 +1,5 @@
-*.xcodeproj
 *.pbxproj
 *.xcscheme
+.DS_Store
+build
+*.xcodeproj/*
