@@ -87,6 +87,19 @@ for row in c.execute ('SELECT flair1, flair2 FROM first_quarter GROUP BY usernam
     if any(acc in flair1 for acc in acc_flair) or any(acc in flair2 for acc in acc_flair):
         acc_fan = acc_fan + 1
 
+
+ws['G1'] = "Bama Flairs"
+ws['G2'] = "Clemson Flairs"
+ws['G3'] = "Bama / Clemson Flairs"
+ws['G4'] = "SEC Flairs"
+ws['G5'] = "ACC Flairs"
+ws.cell(row=1, column=8).value = bama_fan
+ws.cell(row=2, column=8).value = clem_fan
+ws.cell(row=3, column=8).value = bamaclem
+ws.cell(row=4, column=8).value = sec_fan
+ws.cell(row=5, column=8).value = acc_fan
+
+
 # Comment bodies and individual word frequency
 dict = defaultdict(int)
 bama_w = 0
