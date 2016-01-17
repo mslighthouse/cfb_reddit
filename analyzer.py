@@ -3,13 +3,13 @@ import operator
 from collections import defaultdict
 from openpyxl import Workbook
 
-conn = sqlite3.connect('firstquarter.db')   # CHANGE DEPENDING ON DATABASE
+conn = sqlite3.connect('cfb.db')
 c = conn.cursor()
 
 # Create Excel file
 wb = Workbook()
 ws = wb.active
-ws.title = "First Quarter"                  # CHANGE DEPENDING ON DATABASE
+ws.title = "First Quarter"      # CHANGE DEPENDING ON DATABASE
 
 # create titles
 ws['A1'].value = "Username"
@@ -25,7 +25,7 @@ user_total = 0
 delete_num = 0
 
 # unique users (EXCLUDING [deleted]) & post count (INCLUDING [deleted])
-for row in c.execute('SELECT username FROM comments ORDER BY username'):
+for row in c.execute('SELECT username FROM first_quarter ORDER BY username'):
     if row[0] != prev_user and "/u/None" not in row[0]:
         prev_user = row[0]
         user_total += 1
@@ -38,7 +38,7 @@ print("Of the " + str(post_count) + " total posts, " + str(delete_num) + " have 
 rown = 2 # row number iterator
 
 # Users and their post amount
-for row in c.execute('SELECT username, count(*) FROM comments GROUP BY username ORDER BY username'):
+for row in c.execute('SELECT username, count(*) FROM first_quarter GROUP BY username ORDER BY username'):
     ws.cell(row=rown, column=1).value = row[0]
     ws.cell(row=rown, column=2).value = int(float(row[1]))
     rown += 1
@@ -59,7 +59,7 @@ acc_flair = ['Boston College', 'Georgia Tech', 'Carolina State Wolf', 'Virginia 
                 'Miami Hurricanes', 'Syracuse', 'Florida State', 'North Carlonia Tar', 'Virginia Caveliers', 'ACC']
 
 rown = 2
-for row in c.execute ('SELECT flair1, flair2 FROM comments GROUP BY username ORDER BY username'):
+for row in c.execute ('SELECT flair1, flair2 FROM first_quarter GROUP BY username ORDER BY username'):
     
     flair1 = row[0]
     flair2 = row[1]
@@ -98,7 +98,7 @@ watson_w = 0
 touchdown_w = 0
 #onside_w = 0    # uncomment for 4th quarter
 
-for row in c.execute ('SELECT comment FROM comments'):
+for row in c.execute ('SELECT comment FROM first_quarter'):
     if "bama" in row[0].lower(): # all to lower case, for ease in checking
         bama_w += 1
     if "clemson" in row[0].lower() or "clempson" in row[0].lower():

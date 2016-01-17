@@ -6,7 +6,7 @@ start = time.time()
 print("Program Starting") # for debugging / timekeeping
 
 # connect to sql database
-conn = sqlite3.connect('firstquarter.db')                       # CHANGE DEPENDING ON THREAD
+conn = sqlite3.connect('cfb.db')
 cursor = conn.cursor()
 
 # reddit authorization / identification
@@ -46,8 +46,8 @@ if comment.body is None:
     else:
         body = comment.body.encode('ascii', 'ignore')
 
-# add to SQL Database
-cursor.execute("INSERT INTO comments VALUES (?,?,?,?);", (author, flair1, flair2, body))
+# add to SQL Database CHANGE NAME ACCORDING TO DATABASE
+cursor.execute("INSERT INTO first_quarter VALUES (?,?,?,?);", (author, flair1, flair2, body))
 
 # commit changes
 conn.commit()
