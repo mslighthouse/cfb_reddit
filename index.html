@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>reddit-cfb by mslighthouse</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">reddit-cfb</h1>
+      <h2 class="project-tagline">Analysis of Reddit Comments about the 2016 CFB National Championship</h2>
+      <a href="https://github.com/mslighthouse/reddit_cfb" class="btn">View on GitHub</a>
+      <a href="https://github.com/mslighthouse/reddit_cfb/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mslighthouse/reddit_cfb/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="welcome" class="anchor" href="#welcome" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome!</h1>
+
+<p>This is a project page dedicated to the information related to <a href="https://reddit.com/r/CFB">/r/CFB</a>'s 2016 National Championship Threads. The project aims to collect information regarding the comments and format them in ways for people to see interaction, post amount, and other information.</p>
+
+<h1>
+<a id="analysis" class="anchor" href="#analysis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis</h1>
+
+<h2>
+<a id="collecting-data" class="anchor" href="#collecting-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collecting Data</h2>
+
+<p>Data was collected via a python script (<a href="https://github.com/mslighthouse/reddit_cfb/blob/master/collect_comments.py">collect_comments.py</a>) and all comment related data was placed into an sqlite database. Then, another python scrip (<a href="https://github.com/mslighthouse/reddit_cfb/blob/master/analyzer.py">analyze.py</a>) took the information and either printed out relevant info via Command Line or posted into an Excel document. Though the .xlsx file is not included in the repo, it can be easily recreated for your individual viewing by downloading the repo.</p>
+
+<h2>
+<a id="analysis-via-flair" class="anchor" href="#analysis-via-flair" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis via Flair</h2>
+
+<p>One of the most interesting things about /r/CFB is the inclusion of flairs. Any user can request a representation of their collegiate team up to two teams to be displayed with every post of theirs (in the subreddit). This is actually an interesting way to see what type of fans post in the thread. For basic analysis, I looked at individuals with Alabama related flair, Clemson related flair, SEC Team or conference flair, and ACC Team or conference flair. The results were:</p>
+
+<ul>
+<li>Alabama related flairs: 224</li>
+<li>Clemson related flairs: 126</li>
+<li>Alabama AND Clemson flairs: 3</li>
+<li>SEC team / conference flairs: 512</li>
+<li>ACC team / conference flairs: 337</li>
+</ul>
+
+<p>Interesting enough, 3 individuals had an Alabama AND Clemson related flair for them. The Alabama fans pretty significantly outnumbered the Clemson fans. The Alabama and Clemson related flairs do <em>NOT</em> include the 3 individuals representing both, as I have placed those three in a different category. However, the SEC and ACC counts DO account for the 3. I've graphed the relationship of SEC/Alabama vs ACC/Clemson fans representation below:</p>
+
+<h2>
+<a id="analysis-via-users-and-comments" class="anchor" href="#analysis-via-users-and-comments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis via Users and Comments</h2>
+
+<p>The comments themselves are also an interesting place to find discussion. In fact, there were <em>2115 unique users</em> who contributed <em>8631 total comments</em>. Of those 8631 comments, only 57 have been deleted. This means, on average, <em>each user posted 4.0809 times</em>, or just about 4 comments in the thread. The top 5 highest posters, though, were as follows:</p>
+
+<ul>
+<li>
+<a href="https://www.reddit.com/user/ephenssta">/u/ephenssta</a> posted 91 times</li>
+<li>
+<a href="https://www.reddit.com/user/SometimesY">/u/SometimesY</a> posted 77 times</li>
+<li>
+<a href="https://www.reddit.com/user/dpowelll">/u/dpowelll</a> posted 62 times</li>
+<li>
+<a href="https://www.reddit.com/user/tidesoncrim">/u/tidesoncrim</a> posted 61 times</li>
+<li>
+<a href="https://www.reddit.com/user/BamaFan87">/u/BamaFan87</a> posted 58 times</li>
+</ul>
+
+<p>The rest of the users, as well as post count, are formatted in the spreadsheet run by analyze.py</p>
+
+<h2>
+<a id="comments-and-topic" class="anchor" href="#comments-and-topic" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comments and topic</h2>
+
+<p>I also decided to check for certain keywords in comments (swear-word warning ahead!). So, if a comment contained an instance or close relative to any of the keywords, it was counted. Here's the results</p>
+
+<ul>
+<li>Comments related to Alabama: 585</li>
+<li>Comments related to Clemson: 657</li>
+<li>Comments saying a variant of "fuck": 441</li>
+<li>Comments saying a variant of "shit": 253</li>
+<li>Comments mentioning Derrick Henry: 168</li>
+<li>Comments mentioning Deshaun Watson: 198</li>
+<li>Comments talking about a touchdown: 53</li>
+</ul>
+
+<h1>
+<a id="requesting-feedback" class="anchor" href="#requesting-feedback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requesting Feedback</h1>
+
+<p>I plan to do a lot more with this data, as well as to plot the frequency of posts/minute per thread. I also plan to use all four quarter threads. This is me testing an analysis of such data. If you have some good ideas on this information, such as how to format or other potentially interesting data, please send me an email at <a href="mailto:m.slighthouse@yahoo.com">m.slighthouse@yahoo.com</a> .</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mslighthouse/reddit_cfb">reddit-cfb</a> is maintained by <a href="https://github.com/mslighthouse">mslighthouse</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
