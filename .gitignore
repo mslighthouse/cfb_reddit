@@ -3,4 +3,6 @@
 .DS_Store
 build
 *.xcodeproj/*
-.xlsx
+*.xlsx
+*.pyc
+plot_flairs.py

@@ -2,6 +2,7 @@ import praw
 import time
 import sqlite3
 
+
 start = time.time()
 print("Program Starting") # for debugging / timekeeping
 
@@ -13,7 +14,7 @@ cursor = conn.cursor()
 reddit = praw.Reddit("CFB Natty Comment Scrapper 1.0 by /u/mslighthouse")
 
 # grab submission (thread)
-submission = reddit.get_submission(submission_id='40jtc4')      # CHANGE DEPENDING ON THREAD
+submission = reddit.get_submission(submission_id='40kted') # CHANGE DEPENDING ON THREAD 40jtc4, 40kb1o, 40kj0i, 40kted
 submission.replace_more_comments(limit=None, threshold=0)
 
 # flatten tree of all comments
@@ -33,24 +34,27 @@ for comment in commentlist:
         flair1 = "None"
         flair2 = "-"
     else:
-        if '/' in flair_text:   # if two flairs
+        if '/' in flair_text:   # if two flairs #TODO CHECK FOR /r/CFB CONTRIBUTOR FLAIRS. 
             flair1 = flair_text.split('/')[0].strip()
             flair2 = flair_text.split('/')[1].strip()
         else:
             flair1 = flair_text
             flair2 = "-"
 
-# comment bodies
-if comment.body is None:
-    body = "None"
+    # comment bodies
+    if comment.body is None:
+        body = "None"
     else:
         body = comment.body.encode('ascii', 'ignore')
 
-# add to SQL Database CHANGE NAME ACCORDING TO DATABASE
-cursor.execute("INSERT INTO first_quarter VALUES (?,?,?,?);", (author, flair1, flair2, body))
+    # time post was made
+    created = comment.created_utc
+
+    # add to SQL Database CHANGE NAME ACCORDING TO DATABASE
+    cursor.execute("INSERT INTO fourth_quarter VALUES (?,?,?,?,?);", (author, flair1, flair2, body, created))
 
 # commit changes
 conn.commit()
 
 # timekeeping
-print("Program ended. Process time:" + str((time.time() - start)) )
+print("Program ended. Process time:" + str((time.time() - start)/60) + "Minutes")
