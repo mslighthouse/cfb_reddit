@@ -31,9 +31,14 @@ def setup_workbook(database):
     ws['G1'] = "Flair Breakdown"
     ws['G2'] = "Bama Flairs"
     ws['G3'] = "Clemson Flairs"
-    ws['G4'] = "Bama / Clemson Flairs"
-    ws['G5'] = "SEC Flairs"
-    ws['G6'] = "ACC Flairs"
+    ws['G4'] = "Michigan St Flairs"
+    ws['G5'] = "Oklahoma Sooners Flairs"
+    ws['G6'] = "Bama / Clemson Flairs"
+    ws['G7'] = "SEC Flairs"
+    ws['G8'] = "ACC Flairs"
+    ws['G9'] = "Big 12 Flairs"
+    ws['G10'] = "Big 10 Flairs"
+    ws['G11'] = "Pac 12 Flairs"
     ws['H1'] = "Flair Count"
     ws['I1'] = "Time of Comment"
     ws['J1'] = "Posts per Minute"
@@ -80,11 +85,16 @@ def flairs(database):
     wb = wb = load_workbook(filename = database + '.xlsx')
     ws = wb.active
     
-    bama_fan = 0
-    clem_fan = 0
-    bamaclem = 0
-    sec_fan  = 0
-    acc_fan  = 0
+    bama_fan   = 0
+    clem_fan   = 0
+    bamaclem   = 0
+    sec_fan    = 0
+    acc_fan    = 0
+    michst_fan = 0
+    sooner_fan = 0
+    big12_fan  = 0
+    big10_fan  = 0
+    pac12_fan  = 0
 
     bama_flair = ['Alabama Band', 'Crimson Tide']
 
@@ -95,6 +105,18 @@ def flairs(database):
     acc_flair = ['Boston College', 'Georgia Tech', 'Carolina State Wolf', 'Virginia Tech', 'Clemson',
                  'Louisville Card', 'Pittsburg Panthers', 'Wake Forest Demon', 'Duke Blue Devils',
                  'Miami Hurricanes', 'Syracuse', 'Florida State', 'North Carlonia Tar', 'Virginia Caveliers', 'ACC']
+
+    big12_flair = ['Baylor Bears', 'Oklahoma Sooners', 'Oklahoma Bandwagon' 'Texas Longhorns',
+                   'Iowa State Cyclones','Oklahoma State', 'Texas Tech Red', 'Kansas Jay',
+                   'TCU Horned', 'West Virginia', 'Kansas State']
+
+    big10_flair = ['Illini', 'Michigan State', 'Ohio State', 'Wisonsin Bad', 'Indiana Hoosiers',
+                   'Penn State Nittany', 'Iowa Hawkeyes', 'Nebraska Cornhuskers', 'Purdue Boilermakers',
+                   'Maryland Terrapins', 'Northwestern Wildcats', 'Rutgers Scarlet', 'Michigan Wolverines']
+    
+    pac12_flair = ['Arizona Wildcats', 'Oregon Ducks', 'USC Trojans', 'Arizona State Sun', 'Oregon State',
+                   'Utah Utes', 'California Golden', 'Stanford', 'Washington Huskies',
+                   'Colorado Buffaloes', 'UCLA Bruins', 'Washington State']
 
     rown = 2
     execute = 'SELECT flair1, flair2 FROM ' + database + ' GROUP BY username ORDER BY username'
@@ -119,19 +141,36 @@ def flairs(database):
             clem_fan = clem_fan - 1
             bamaclem = bamaclem + 1
         
+        # Check Michigan St
+        if 'Michigan State' in flair1 or 'Michigan State' in flair2:
+            michst_fan += 1
+        
+        # Check Oklahoma Sooner fan
+        if 'Oklahoma Band' in flair1 or 'Oklahoma Band' in flair2 or 'Sooners' in flair1 or 'Sooners' in flair2:
+            sooner_fan += 1
+
         # Check SEC flairs
         if any(sec in flair1 for sec in sec_flair) or any(sec in flair2 for sec in sec_flair):
             sec_fan = sec_fan + 1
         # Check ACC flairs
         if any(acc in flair1 for acc in acc_flair) or any(acc in flair2 for acc in acc_flair):
             acc_fan = acc_fan + 1
+        # Check BIG12 flairs
+        if any(big12 in flair1 for big12 in big12_flair) or any(big12 in flair2 for big12 in big12_flair):
+            big12_fan = big12_fan + 1
+        # Check BIG10 flairs
+        if any(big10 in flair1 for big10 in big10_flair) or any(big10 in flair2 for big10 in big10_flair):
+            big10_fan = big10_fan + 1
+        # Check PAC12 flairs
+        if any(pac12 in flair1 for pac12 in pac12_flair) or any(pac12 in flair2 for pac12 in pac12_flair):
+            pac12_fan = pac12_fan + 1
 
-    ws.cell(row=2, column=8).value = bama_fan
-    ws.cell(row=3, column=8).value = clem_fan
-    ws.cell(row=4, column=8).value = bamaclem
-    ws.cell(row=5, column=8).value = sec_fan
-    ws.cell(row=6, column=8).value = acc_fan
-
+    fan_arr = [bama_fan, clem_fan, michst_fan, sooner_fan, bamaclem, sec_fan, acc_fan, big12_fan, big10_fan, pac12_fan]
+    
+    # Place in ws via loop (insteasd of copy/pasting)
+    for fan in range(0, len(fan_arr)):
+        ws.cell(row=(fan+2), column=8).value = fan_arr[fan]
+    
     # Resave Workbook
     wb.save(database + '.xlsx')
 
