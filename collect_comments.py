@@ -34,9 +34,9 @@ for comment in commentlist:
         flair1 = "None"
         flair2 = "-"
     else:
-        if '/' in flair_text:   # if two flairs #TODO CHECK FOR /r/CFB CONTRIBUTOR FLAIRS. 
-            flair1 = flair_text.split('/')[0].strip()
-            flair2 = flair_text.split('/')[1].strip()
+        if ' / ' in flair_text:   # if two flairs 
+            flair1 = flair_text.split(' / ')[0].strip()
+            flair2 = flair_text.split(' / ')[1].strip()
         else:
             flair1 = flair_text
             flair2 = "-"
